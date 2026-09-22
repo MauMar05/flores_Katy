@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Para ti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cielo-1: #241833;
+    --cielo-2: #3a2350;
+    --cielo-3: #7a4a52;
+    --cielo-4: #d98a4f;
+    --amarillo: #F7C948;
+    --amarillo-claro: #FCE18C;
+    --amarillo-centro: #C9861B;
+    --tallo: #3E6B3A;
+    --tallo-oscuro: #2C4E29;
+    --texto: #FBF4E3;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    background: linear-gradient(180deg, var(--cielo-1) 0%, var(--cielo-2) 45%, var(--cielo-3) 75%, var(--cielo-4) 100%);
+    font-family: 'Cormorant Garamond', serif;
+    position: relative;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  }
+
+  .estrella {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--texto);
+    border-radius: 50%;
+    opacity: 0;
+    animation: parpadeo 4s ease-in-out infinite;
+  }
+
+  @keyframes parpadeo {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.7; }
+  }
+
+  .escena {
+    position: relative;
+    width: min(92vw, 480px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 20px 8px;
+  }
+
+  .mensaje {
+    text-align: center;
+    color: var(--texto);
+    font-family: 'Caveat', cursive;
+    font-size: clamp(28px, 6.2vw, 42px);
+    line-height: 1.35;
+    max-width: 420px;
+    margin: 0 0 10px;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: aparecer 1.4s ease forwards;
+    animation-delay: 2.6s;
+    text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+  }
+
+  @keyframes aparecer {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes aparecer-opacidad {
+    to { opacity: 1; }
+  }
+
+  .ramo-envoltorio {
+    width: min(78vw, 320px);
+  }
+
+  .ramo-mecer {
+    transform-origin: 150px 300px;
+    animation: mecer 5s ease-in-out infinite;
+    animation-delay: 2.2s;
+  }
+
+  @keyframes mecer {
+    0%, 100% { transform: rotate(-1.6deg); }
+    50% { transform: rotate(1.6deg); }
+  }
+
+  .tallo {
+    stroke: var(--tallo);
+    stroke-width: 5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-dasharray: 260;
+    stroke-dashoffset: 260;
+    animation: crecer 1s ease-out forwards;
+  }
+
+  .hoja {
+    fill: var(--tallo);
+    opacity: 0;
+    animation: hoja-aparece 0.6s ease-out forwards;
+  }
+
+  .petalo {
+    fill: var(--amarillo);
+    transform-origin: center;
+    transform-box: fill-box;
+    transform: scale(0);
+    animation: florecer 0.7s cubic-bezier(.2,1.4,.4,1) forwards;
+  }
+
+  .petalo.claro { fill: var(--amarillo-claro); }
+
+  .centro-flor {
+    fill: var(--amarillo-centro);
+    transform-origin: center;
+    transform-box: fill-box;
+    transform: scale(0);
+    animation: florecer 0.5s ease-out forwards;
+  }
+
+  @keyframes crecer {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes hoja-aparece {
+    to { opacity: 1; }
+  }
+
+  @keyframes florecer {
+    to { transform: scale(1); }
+  }
+
+  .listón-grupo {
+    opacity: 0;
+    animation: aparecer-opacidad 0.8s ease forwards;
+    animation-delay: 1.7s;
+  }
+
+  .firma {
+    color: var(--texto);
+    opacity: 0.75;
+    font-family: 'Caveat', cursive;
+    font-size: 20px;
+    margin-top: 2px;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: aparecer 1.2s ease forwards;
+    animation-delay: 3.2s;
+  }
+</style>
+</head>
+<body>
+
+<div class="escena">
+
+  <p class="mensaje">
+    aunque aún no somos pero lo seremos,<br>
+    te dejo tus flores amarillas mi Katy
+  </p>
+
+  <div class="ramo-envoltorio">
+    <svg viewBox="0 0 300 320" width="100%" style="display:block; overflow:visible;">
+      <g class="ramo-mecer">
+
+        <!-- Tallos: todos convergen en el mismo punto (150,300), como un ramo atado -->
+        <path class="tallo" d="M150 300 C 110 250 90 190 95 100" style="animation-delay:0.55s"/>
+        <path class="tallo" d="M150 300 C 130 240 125 160 130 65" style="animation-delay:0.75s"/>
+        <path class="tallo" d="M150 300 C 150 230 160 140 165 55" style="animation-delay:0.95s"/>
+        <path class="tallo" d="M150 300 C 170 240 185 160 200 70" style="animation-delay:0.75s"/>
+        <path class="tallo" d="M150 300 C 190 250 220 190 235 105" style="animation-delay:0.55s"/>
+
+        <!-- Hojas -->
+        <ellipse class="hoja" cx="105" cy="200" rx="13" ry="6" transform="rotate(-40 105 200)" style="animation-delay:1.0s"/>
+        <ellipse class="hoja" cx="128" cy="175" rx="13" ry="6" transform="rotate(-15 128 175)" style="animation-delay:1.15s"/>
+        <ellipse class="hoja" cx="172" cy="170" rx="13" ry="6" transform="rotate(15 172 170)" style="animation-delay:1.15s"/>
+        <ellipse class="hoja" cx="197" cy="195" rx="13" ry="6" transform="rotate(35 197 195)" style="animation-delay:1.0s"/>
+        <ellipse class="hoja" cx="150" cy="230" rx="14" ry="6" transform="rotate(0 150 230)" style="animation-delay:1.25s"/>
+
+        <!-- Flores, agrupadas en arco formando la cabeza del ramo -->
+        <g data-flor="1" transform="translate(95,100)"></g>
+        <g data-flor="2" transform="translate(130,65)"></g>
+        <g data-flor="3" transform="translate(165,55)"></g>
+        <g data-flor="4" transform="translate(200,70)"></g>
+        <g data-flor="5" transform="translate(235,105)"></g>
+
+        <!-- Listón atando los tallos -->
+        <g class="listón-grupo" transform="translate(150,300)">
+          <path d="M0 -14 C -32 -14 -46 -3 -46 4 C -46 11 -35 14 -28 7 C -28 7 -20 16 0 16 C 20 16 28 7 28 7 C 35 14 46 11 46 4 C 46 -3 32 -14 0 -14Z" fill="#B5473F"/>
+          <path d="M0 -14 C -32 -14 -46 -3 -46 4 C -46 11 -35 14 -28 7 C -28 7 -20 16 0 16 C 20 16 28 7 28 7 C 35 14 46 11 46 4 C 46 -3 32 -14 0 -14Z" fill="none" stroke="#8A322C" stroke-width="1.5" opacity="0.5"/>
+        </g>
+
+      </g>
+    </svg>
+  </div>
+
+  <p class="firma">21 de septiembre</p>
+
+</div>
+
+<script>
+  const body = document.body;
+  for (let i = 0; i < 40; i++) {
+    const s = document.createElement('div');
+    s.className = 'estrella';
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.top = Math.random() * 55 + 'vh';
+    s.style.animationDelay = (Math.random() * 4) + 's';
+    body.appendChild(s);
+  }
+
+  // Rellena cada <g data-flor> con sus pétalos y centro.
+  // La rotación de cada pétalo va en un <g>; el scale animado va en la
+  // elipse (CSS). Si van en el mismo elemento, el transform de CSS pisa
+  // al transform del SVG y se pierde la rotación.
+  function contenidoFlor(escala, retraso, claro) {
+    const numPetalos = 8;
+    const radioPetalo = 14 * escala;
+    const anchoPetalo = 8.5 * escala;
+    let html = '';
+    for (let i = 0; i < numPetalos; i++) {
+      const angulo = (360 / numPetalos) * i;
+      const delay = (retraso + i * 0.03).toFixed(2);
+      html += `<g transform="rotate(${angulo})"><ellipse class="petalo ${claro ? 'claro' : ''}" cx="0" cy="${-radioPetalo}" rx="${anchoPetalo * 0.5}" ry="${radioPetalo}" style="animation-delay:${delay}s"/></g>`;
+    }
+    html += `<circle class="centro-flor" r="${6.5 * escala}" style="animation-delay:${(retraso + 0.35).toFixed(2)}s"/>`;
+    return html;
+  }
+
+  const config = {
+    1: { escala: 0.85, retraso: 1.05, claro: false },
+    2: { escala: 1.0,  retraso: 1.25, claro: true  },
+    3: { escala: 1.15, retraso: 1.45, claro: false },
+    4: { escala: 1.0,  retraso: 1.25, claro: true  },
+    5: { escala: 0.85, retraso: 1.05, claro: false },
+  };
+
+  Object.entries(config).forEach(([num, cfg]) => {
+    const g = document.querySelector(`[data-flor="${num}"]`);
+    g.innerHTML = contenidoFlor(cfg.escala, cfg.retraso, cfg.claro);
+  });
+</script>
+
+</body>
+</html>
